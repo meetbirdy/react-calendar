@@ -66,7 +66,7 @@ function getRangeClassNames(valueRange, dateRange, baseClassName) {
 }
 
 export function getTileClasses({
-  value, valueType, date, dateType, hover,
+  value, date, dateType,
 } = {}) {
   const className = 'react-calendar__tile';
   const classes = [className];
@@ -90,10 +90,22 @@ export function getTileClasses({
     return classes;
   }
 
-  if (!(value instanceof Array) && !valueType) {
-    throw new Error('getTileClasses(): Unable to get tile activity classes because one or more required arguments were not passed.');
+  if (!(value instanceof Array)) {
+    throw new Error('value is not of type array');
   }
 
+  const selectedDates = value;
+  // Check if any of the selectedDates are within the current date range
+  const dateIsSelected = selectedDates.reduce(
+    (b, d) => b || isValueWithinRange(d, dateRange),
+    false,
+  );
+
+  if (dateIsSelected) {
+    classes.push(`${className}--active`);
+  }
+
+  /*
   const valueRange = value instanceof Array ? value : getRange(valueType, value);
 
   if (isRangeWithinRange(valueRange, dateRange)) {
@@ -112,6 +124,7 @@ export function getTileClasses({
 
     classes.push(...hoverRangeClassNames);
   }
+  */
 
   return classes;
 }

@@ -91,6 +91,7 @@ export const tileGroupProps = {
   minDate: isMinDate,
   onClick: PropTypes.func,
   onMouseOver: PropTypes.func,
+  hideDatesOlderThanMin: PropTypes.bool,
   tileClassName: PropTypes.oneOfType([
     PropTypes.func,
     isClassName,

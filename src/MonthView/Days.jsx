@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   getYear,
   getMonth,
-  getDaysInMonth,
+  getDaysInMonth
 } from '@wojtekmaj/date-utils';
 
 import TileGroup from '../TileGroup';
@@ -20,11 +20,15 @@ export default function Days(props) {
   const {
     showFixedNumberOfWeeks,
     showNeighboringMonth,
+    hideDatesOlderThanMin,
+    minDate,
     ...otherProps
   } = props;
 
   const year = getYear(activeStartDate);
   const monthIndex = getMonth(activeStartDate);
+  const minMonthYear = minDate ? getYear(minDate) : -1;
+  const minMonthIndex = minDate ? getMonth(minDate) : -1;
 
   const hasFixedNumberOfWeeks = showFixedNumberOfWeeks || showNeighboringMonth;
   const dayOfWeek = getDayOfWeek(activeStartDate, calendarType);
@@ -36,7 +40,14 @@ export default function Days(props) {
    * month, we obviously start on day one, but if showNeighboringMonth is set to
    * true, we need to find the beginning of the week the first day of the month is in.
    */
-  const start = (hasFixedNumberOfWeeks ? -dayOfWeek : 0) + 1;
+  const start = (() => {
+    if (hideDatesOlderThanMin && minMonthYear === year && minMonthIndex === monthIndex) {
+      // If we are in the minimum month, then start the calendar at the first day of
+      // the min date's week.
+      return minDate.getDate() - getDayOfWeek(minDate, calendarType);
+    }
+    return (hasFixedNumberOfWeeks ? -dayOfWeek : 0) + 1;
+  })();
 
   /**
    * Defines on which day of the month the grid shall end. If we simply show current
