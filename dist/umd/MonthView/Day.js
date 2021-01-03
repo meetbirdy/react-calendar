@@ -55,5 +55,6 @@ function Day(_ref) {
 
 Day.propTypes = _objectSpread(_objectSpread({}, _propTypes2.tileProps), {}, {
   currentMonthIndex: _propTypes["default"].number.isRequired,
-  formatLongDate: _propTypes["default"].func
+  formatLongDate: _propTypes["default"].func,
+  showNeighboringMonthAsCurrent: _propTypes["default"].bool
 });

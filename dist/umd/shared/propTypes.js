@@ -112,6 +112,7 @@ var tileGroupProps = {
   onClick: _propTypes["default"].func,
   onMouseOver: _propTypes["default"].func,
   hideDatesOlderThanMin: _propTypes["default"].bool,
+  showNeighboringMonthAsCurrent: _propTypes["default"].bool,
   tileClassName: _propTypes["default"].oneOfType([_propTypes["default"].func, isClassName]),
   tileContent: _propTypes["default"].oneOfType([_propTypes["default"].func, _propTypes["default"].node]),
   value: isValue,

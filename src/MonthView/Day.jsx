@@ -42,4 +42,5 @@ Day.propTypes = {
   ...tileProps,
   currentMonthIndex: PropTypes.number.isRequired,
   formatLongDate: PropTypes.func,
+  showNeighboringMonthAsCurrent: PropTypes.bool,
 };

@@ -50,14 +50,25 @@ export default function Days(props) {
   })();
 
   /**
+   * If we are hiding at-least first week in the month, show all days as the current "month".
+    */
+  const showNeighboringMonthAsCurrent = (() => {
+    console.log('Start: ', start);
+    if (start >= 8) {
+      return true;
+    }
+    return false;
+  })
+
+  /**
    * Defines on which day of the month the grid shall end. If we simply show current
    * month, we need to stop on the last day of the month, but if showNeighboringMonth
    * is set to true, we need to find the end of the week the last day of the month is in.
    */
   const end = (() => {
     if (showFixedNumberOfWeeks) {
-      // Always show 6 weeks
-      return start + (6 * 7) - 1;
+      // Always show 4 weeks
+      return start + (5 * 7) - 1;
     }
 
     const daysInMonth = getDaysInMonth(activeStartDate);
@@ -97,6 +108,5 @@ export default function Days(props) {
 Days.propTypes = {
   calendarType: isCalendarType.isRequired,
   showFixedNumberOfWeeks: PropTypes.bool,
-  showNeighboringMonth: PropTypes.bool,
   ...tileGroupProps,
 };

@@ -37,5 +37,6 @@ export default function Day(_ref) {
 }
 Day.propTypes = _objectSpread(_objectSpread({}, tileProps), {}, {
   currentMonthIndex: PropTypes.number.isRequired,
-  formatLongDate: PropTypes.func
+  formatLongDate: PropTypes.func,
+  showNeighboringMonthAsCurrent: PropTypes.bool
 });
